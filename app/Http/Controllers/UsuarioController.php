@@ -18,7 +18,7 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-            "usuario" => $this->usuarioRepository->todosLosUsuarios($request->all())
+            "usuarios" => $this->usuarioRepository->todosLosUsuarios($request->all())
         ],Response::HTTP_OK);
     }
 
