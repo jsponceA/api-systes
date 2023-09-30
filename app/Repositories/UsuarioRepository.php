@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use App\Interfaces\UsuarioRepositoryInterface;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioRepository implements UsuarioRepositoryInterface
 {
-    protected $user;
-
     public function todosLosUsuarios(array $params)
     {
         $buscar = $params["buscar"] ?? null;
@@ -17,8 +17,12 @@ class UsuarioRepository implements UsuarioRepositoryInterface
 
         $usuarios = User::query()
             ->when(!empty($buscar),function ($query) use ($buscar){
-                $query->where("usuario","ILIKE","%".$buscar."%");
+                $query
+                    ->where("usuario","ILIKE","%".$buscar."%")
+                    ->orWhere("apellidos","ILIKE","%".$buscar."%")
+                    ->orWhere("nombres","ILIKE","%".$buscar."%");
             })
+            ->orderBy("id","DESC")
             ->paginate($cantidadRegistros,"*","page",$pagina);
 
         return $usuarios;
@@ -47,4 +51,19 @@ class UsuarioRepository implements UsuarioRepositoryInterface
         $usuario = User::query()->findOrFail($id)->delete();
         return $usuario;
     }
+
+    public function cargarFoto(string $path,UploadedFile $file)
+    {
+        if ($file->isFile()){
+            $foto = Storage::putFile($path,$file);
+            return basename($foto);
+        }
+        return null;
+    }
+
+    public function eliminarFoto(string $path,string $nameFile)
+    {
+        return Storage::delete($path.'/'.$nameFile);
+    }
+
 }

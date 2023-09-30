@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('usuario',100);
             $table->string('clave');
-            $table->string('nombre',100);
+            $table->string('nombres',100);
             $table->string('apellidos',100);
             $table->string('correo')->nullable();
             $table->string('foto')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
         \App\Models\User::query()->create([
             "usuario" => "ltasayco",
             "clave" => bcrypt(123456),
-            "nombre" => "luis fernando",
+            "nombres" => "luis fernando",
             "apellidos" => "tasayco tuanama",
             "correo" => "luist@gmail.com",
             "estado" => 1,

@@ -24,17 +24,17 @@ class UsuarioRequest extends FormRequest
                     "apellidos" => ["required","max:100"],
                     "correo" => ["required","email","max:255"],
                     "foto" => ["nullable","image","max:8192"],
-                    "estado" => ["required","boolean"],
+                    "estado" => ["required"],
                 ];
             case "PUT":
                 return [
                     "usuario" => ["required","max:100",Rule::unique("usuarios","usuario")->ignore($this->id,"id")->whereNull("deleted_at")],
-                    "clave" => ["required","max:255"],
+                    "clave" => ["nullable","max:255"],
                     "nombres" => ["required","max:100"],
                     "apellidos" => ["required","max:100"],
                     "correo" => ["required","email","max:255"],
                     "foto" => ["nullable","image","max:8192"],
-                    "estado" => ["required","boolean"],
+                    "estado" => ["required"],
                 ];
             default:
                 return [];
