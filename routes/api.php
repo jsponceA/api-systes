@@ -53,9 +53,14 @@ Route::apiResource("ventas",VentaController::class);
 /* FIN DE RUTAS PARA ARCHIVOS */
 
 
-/* RUTAS PARA ARCHIVOS */
-Route::apiResource("graficos",GraficoController::class);
-/* FIN DE RUTAS PARA ARCHIVOS */
+/* RUTAS PARA GRAFICOS */
+Route::get("graficos/totalesVentasPorMesAnioPasado",[GraficoController::class,"totalesVentasPorMesAnioPasado"]);
+Route::get("graficos/totalesVentasPorMesAnioActual",[GraficoController::class,"totalesVentasPorMesAnioActual"]);
+Route::get("graficos/metaPlaneadaMensual",[GraficoController::class,"metaPlaneadaMensual"]);
+Route::get("graficos/productosMasVendidos",[GraficoController::class,"productosMasVendidos"]);
+Route::get("graficos/recomendacionProducto",[GraficoController::class,"recomendacionProducto"]);
+
+/* FIN DE RUTAS PARA GRAFICOS */
 
 Route::fallback(function (){
     return response()->json([
