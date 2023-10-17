@@ -36,7 +36,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
                 "um_por_entregar" => $row["um_por_entregar"],
                 "estado" => $row["estado"],
                 "condicion_pago" => $row["condicion_de_pago"],
-                "linea_padre" => $row["linea_padre"],
+                "linea_padre" => $row["linea_padre"] ?? "",
                 "linea_hijo" => $row["linea_hijo"],
             ]);
         }
