@@ -16,7 +16,8 @@ class ArchivoImport implements WithHeadingRow, ToCollection
     {
 
         foreach ($rows as $row) {
-            $row["fecha"] = !empty($row["fecha"]) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row["fecha"])->format('Y-m-d') : null;
+            $fecha = intval($row['fecha']);
+            $row["fecha"] = !empty($fecha) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($fecha)->format('Y-m-d') : null;
             Venta::query()->create([
                 "documento" => $row["documento"],
                 "vendedor" => $row["vendedor"],
@@ -28,7 +29,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
                 "codigo_producto" => $row["codigo_producto"],
                 "producto" => $row["producto"],
                 "moneda" => $row["moneda"],
-                "precio_publico" => $row["precio_publico"],
+                "precio_publico" => is_numeric($row["precio_publico"]) ? round($row["precio_publico"],2) : 0,
                 "precio" => $row["precio"],
                 "totales" => $row["totales"],
                 "descuento" => $row["descuento_global"],
