@@ -28,7 +28,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
                 "codigo_producto" => $row["codigo_producto"],
                 "producto" => $row["producto"],
                 "moneda" => $row["moneda"],
-                "precio_publico" => is_numeric($row["precio_publico"]) ? round($row["precio_publico"],2) : 0,
+                "precio_publico" => $row["precio_publico"],
                 "precio" => $row["precio"],
                 "totales" => $row["totales"],
                 "descuento" => $row["descuento_global"],
