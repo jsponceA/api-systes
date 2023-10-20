@@ -16,6 +16,7 @@ class UsuarioRepository implements UsuarioRepositoryInterface
         $pagina = $params["pagina"] ?? null;
 
         $usuarios = User::query()
+            ->with(["rol"])
             ->when(!empty($buscar),function ($query) use ($buscar){
                 $query
                     ->where("usuario","ILIKE","%".$buscar."%")

@@ -22,7 +22,7 @@ class UsuarioRequest extends FormRequest
                     "clave" => ["required","max:255"],
                     "nombres" => ["required","max:100"],
                     "apellidos" => ["required","max:100"],
-                    "correo" => ["required","email","max:255"],
+                    "correo" => ["nullable","email","max:255"],
                     "foto" => ["nullable","image","max:8192"],
                     "estado" => ["required"],
                 ];
@@ -32,7 +32,7 @@ class UsuarioRequest extends FormRequest
                     "clave" => ["nullable","max:255"],
                     "nombres" => ["required","max:100"],
                     "apellidos" => ["required","max:100"],
-                    "correo" => ["required","email","max:255"],
+                    "correo" => ["nullable","email","max:255"],
                     "foto" => ["nullable","image","max:8192"],
                     "estado" => ["required"],
                 ];

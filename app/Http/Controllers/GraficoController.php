@@ -104,7 +104,8 @@ class GraficoController extends Controller
             ->whereNotNull("producto")
             ->groupBy("producto")
             ->orderByDesc("cantidad")
-            ->first();
+            ->take(5)
+            ->get();
 
         return response()->json([
             "resultado" => $resultado

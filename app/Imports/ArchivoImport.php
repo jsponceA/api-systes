@@ -16,7 +16,6 @@ class ArchivoImport implements WithHeadingRow, ToCollection
     {
 
         foreach ($rows as $row) {
-            $fecha = intval($row['fecha']);
             $row["fecha"] = !empty($fecha) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($fecha)->format('Y-m-d') : null;
             Venta::query()->create([
                 "documento" => $row["documento"],

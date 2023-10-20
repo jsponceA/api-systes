@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +25,7 @@ class User extends Authenticatable
         "correo",
         "foto",
         "estado",
+        "rol_id"
     ];
 
     protected $hidden = [
@@ -40,5 +44,10 @@ class User extends Authenticatable
     public function getFotoUrlAttribute()
     {
         return !empty($this->foto) ? Storage::url("usuarios/".$this->foto) : null;
+    }
+
+    public function rol(): belongsTo
+    {
+        return $this->belongsTo(Rol::class,"rol_id","id")->withDefault();
     }
 }

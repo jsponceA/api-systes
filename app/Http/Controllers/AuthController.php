@@ -29,7 +29,7 @@ class AuthController extends Controller
 
             return response()->json([
                 "message" => "Usuario autenticado con exito",
-                "usuario" => $validarUsuario,
+                "usuario" => $validarUsuario->load(["rol"]),
                 "token" => $validarUsuario->createToken("TOKEN_LOGIN")->plainTextToken
             ],Response::HTTP_OK);
 
