@@ -17,9 +17,9 @@ class ArchivoImport implements WithHeadingRow, ToCollection
     {
 
         foreach ($rows as $row) {
-            $row["fecha"] = !empty($fecha) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($fecha)->format('d/m/Y') : null;
+
             if (!empty($row["fecha"])){
-                $fecha = $row["fecha"];
+                $fecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row["fecha"])->format('d/m/Y') ;
                 $arrayFecha = explode("/",$fecha);
                 $dia = Str::padLeft($arrayFecha[0],2,"0");
                 $mes = $arrayFecha[1] ?? "";
