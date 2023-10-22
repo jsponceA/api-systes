@@ -19,6 +19,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
         foreach ($rows as $row) {
 
             if (!empty($row["fecha"])){
+                $row["fecha"] = intval($row["fecha"]);
                 $fecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row["fecha"])->format("Y-m-d");
 
 
