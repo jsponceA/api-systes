@@ -23,7 +23,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
                 "fecha" => $row["fecha"],
                 "nro_doc" => $row["nro_doc_cliente"],
                 "cliente" => $row["cliente"],
-                "cantidad" => $row["cantidad"],
+                "cantidad" => is_numeric($row["cantidad"]) ? $row["cantidad"] : 0,
                 "u_medida" => $row["u_medida"],
                 "codigo_producto" => $row["codigo_producto"],
                 "producto" => $row["producto"],
