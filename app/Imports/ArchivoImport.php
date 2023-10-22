@@ -19,18 +19,13 @@ class ArchivoImport implements WithHeadingRow, ToCollection
         foreach ($rows as $row) {
 
             if (!empty($row["fecha"])){
-                $fecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row["fecha"]);
-                $arrayFecha = explode("/",$fecha);
-                $dia = Str::padLeft($arrayFecha[0],2,"0");
-                $mes = $arrayFecha[1] ?? "";
-                $anio = $arrayFecha[2] ?? "";
+                $fecha = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row["fecha"])->format("Y-m-d");
 
-                $fechaFinal = $anio.'-'.$mes.'-'.$dia;
 
                 Venta::query()->create([
                     "documento" => $row["documento"],
                     "vendedor" => $row["vendedor"],
-                    "fecha" => strlen($fechaFinal) === 10 && checkdate($mes,$dia,$anio) ? $fechaFinal : null,
+                    "fecha" => $fecha,
                     "nro_doc" => $row["nro_doc_cliente"],
                     "cliente" => $row["cliente"],
                     "cantidad" => is_numeric($row["cantidad"]) ? $row["cantidad"] : 0,
