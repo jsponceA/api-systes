@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Venta;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
@@ -16,11 +17,19 @@ class ArchivoImport implements WithHeadingRow, ToCollection
     {
 
         foreach ($rows as $row) {
-            $row["fecha"] = !empty($fecha) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($fecha)->format('Y-m-d') : null;
+            //$row["fecha"] = !empty($fecha) ? \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($fecha)->format('Y-m-d') : null;
+            $fecha = $row["fecha"] ?? "";
+            $arrayFecha = explode("/",$fecha);
+            $dia = Str::padLeft($arrayFecha[0],2,"0");
+            $mes = $arrayFecha[1];
+            $anio = $arrayFecha[2];
+
+            $fechaFinal = now()->parse($dia."/".$mes."/".$anio)->format("Y-m-d");
+
             Venta::query()->create([
                 "documento" => $row["documento"],
                 "vendedor" => $row["vendedor"],
-                "fecha" => $row["fecha"],
+                "fecha" => $fechaFinal,
                 "nro_doc" => $row["nro_doc_cliente"],
                 "cliente" => $row["cliente"],
                 "cantidad" => is_numeric($row["cantidad"]) ? $row["cantidad"] : 0,
