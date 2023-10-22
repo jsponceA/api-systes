@@ -22,16 +22,16 @@ class ArchivoImport implements WithHeadingRow, ToCollection
                 $fecha = $row["fecha"];
                 $arrayFecha = explode("/",$fecha);
                 $dia = Str::padLeft($arrayFecha[0],2,"0");
-                $mes = $arrayFecha[1];
-                $anio = $arrayFecha[2];
+                $mes = $arrayFecha[1] ?? "";
+                $anio = $arrayFecha[2] ?? "";
 
-                $fechaFinal = now()->parse($dia."/".$mes."/".$anio)->format("Y-m-d");
+                $fechaFinal = $anio.'-'.$mes.'-'.$dia;
             }
 
             Venta::query()->create([
                 "documento" => $row["documento"],
                 "vendedor" => $row["vendedor"],
-                "fecha" => $fechaFinal ?? null,
+                "fecha" => now()->parse($fechaFinal)->format("Y-m-d"),
                 "nro_doc" => $row["nro_doc_cliente"],
                 "cliente" => $row["cliente"],
                 "cantidad" => is_numeric($row["cantidad"]) ? $row["cantidad"] : 0,
