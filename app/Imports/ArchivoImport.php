@@ -31,7 +31,7 @@ class ArchivoImport implements WithHeadingRow, ToCollection
             Venta::query()->create([
                 "documento" => $row["documento"],
                 "vendedor" => $row["vendedor"],
-                "fecha" => strlen($fechaFinal) === 10 && now()->parse($fechaFinal)->isPast() ? $fechaFinal : null,
+                "fecha" => strlen($fechaFinal) === 10 && checkdate($mes,$dia,$anio) ? $fechaFinal : null,
                 "nro_doc" => $row["nro_doc_cliente"],
                 "cliente" => $row["cliente"],
                 "cantidad" => is_numeric($row["cantidad"]) ? $row["cantidad"] : 0,
